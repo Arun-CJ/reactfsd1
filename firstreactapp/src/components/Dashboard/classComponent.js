@@ -9,6 +9,7 @@ class SampleClass extends Component {
     this.state = {
       color: "red",
       name: "CJ",
+      arr: [1, 2, 3, 4],
     };
   }
 
@@ -21,13 +22,13 @@ class SampleClass extends Component {
   }
 
   render() {
-    const { color, name } = this.state;
+    const { color, name, arr } = this.state;
 
     console.log("Inside render method");
     return (
       <div>
         This is Class Component
-        <ColorComponent color={color} name={name} />
+        <ColorComponent arrayValues={arr} color={color} name={name} />
         <NameComponent name={name} />
         <button onClick={() => this.setState({ color: "green", name: "DJ" })}>
           Update Color to Green
