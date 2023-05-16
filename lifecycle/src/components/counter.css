@@ -1,0 +1,11 @@
+.increment {
+  background-color: green;
+  color: white;
+  margin-right: 5px;
+}
+
+.decrement {
+  background-color: red;
+  color: white;
+  margin-right: 5px;
+}
