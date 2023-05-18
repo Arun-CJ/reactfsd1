@@ -1,4 +1,5 @@
 import { useState } from "react";
+import UserComponent from "./UserComponent";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -7,10 +8,13 @@ const FormComponent = () => {
     phoneNumber: "",
     age: "",
   });
+  const [users, setUsers] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted", formData);
+    const newUsers = [...users, formData];
+    console.log("submitted", formData, users, typeof users, newUsers);
+    setUsers(newUsers);
   };
 
   const handleInput = (e) => {
@@ -19,86 +23,89 @@ const FormComponent = () => {
     // console.log(e.target.value, e.target.name, e.target.type);
   };
   return (
-    <form
-      style={{ width: "500px", margin: "auto" }}
-      onSubmit={(e) => handleSubmit(e)}
-    >
-      <div className="mb-3">
-        <label for="exampleInputEmail1" className="form-label">
-          Name
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          name="name"
-          value={formData.name}
-          onChange={(e) => handleInput(e)}
-        />
-      </div>
-      <div className="mb-3">
-        <label for="exampleInputEmail1" className="form-label">
-          Email address
-        </label>
-        <input
-          type="email"
-          className="form-control"
-          name="email"
-          value={formData.email}
-          onChange={(e) => handleInput(e)}
-        />
-      </div>{" "}
-      <div className="mb-3">
-        <label for="exampleInputEmail1" className="form-label">
-          Phone Number:
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={(e) => handleInput(e)}
-        />
-      </div>
-      <div className="mb-3">
-        <label for="exampleInputEmail1" className="form-label">
-          Age
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          name="age"
-          value={formData.age}
-          onChange={(e) => handleInput(e)}
-        />
-      </div>
-      <div className="mb-3">
-        <label for="exampleInputEmail1" className="form-label">
-          Gender
-        </label>
-        <div class="form-check">
+    <div>
+      <form
+        style={{ width: "500px", margin: "auto" }}
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Name
+          </label>
           <input
-            class="form-check-input"
-            type="radio"
-            name="gender"
-            value={formData.gender}
+            type="text"
+            className="form-control"
+            name="name"
+            value={formData.name}
             onChange={(e) => handleInput(e)}
-          />{" "}
-          Male
-          <br />
-          <input
-            class="form-check-input"
-            type="radio"
-            name="gender"
-            value={"Female"}
-            onChange={(e) => handleInput(e)}
-          />{" "}
-          Female
+          />
         </div>
-      </div>
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
-    </form>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            value={formData.email}
+            onChange={(e) => handleInput(e)}
+          />
+        </div>{" "}
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Phone Number:
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={(e) => handleInput(e)}
+          />
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Age
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            name="age"
+            value={formData.age}
+            onChange={(e) => handleInput(e)}
+          />
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Gender
+          </label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              value={formData.gender}
+              onChange={(e) => handleInput(e)}
+            />{" "}
+            Male
+            <br />
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              value={"Female"}
+              onChange={(e) => handleInput(e)}
+            />{" "}
+            Female
+          </div>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+      <UserComponent userData={users} />
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ function App() {
       React Form handle
       {/* <button className="btn btn-primary">Button</button> */}
       <FormComponent />
+      <SampleClass />
     </div>
   );
 }
