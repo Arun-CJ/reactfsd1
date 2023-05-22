@@ -1,4 +1,4 @@
-[
+const users = [
   {
     id: 1,
     name: "Leanne Graham",
@@ -230,3 +230,5 @@
     },
   },
 ];
+
+export default users;

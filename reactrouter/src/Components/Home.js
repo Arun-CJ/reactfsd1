@@ -9,6 +9,9 @@ const Home = () => {
       <button className="btn btn-primary" onClick={() => navigate("/about-us")}>
         Go to About Us
       </button>
+      <button className="btn btn-warning">
+        <Link to="/about-us">About Us</Link>
+      </button>
     </div>
   );
 };

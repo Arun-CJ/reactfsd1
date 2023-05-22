@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
   return (
@@ -15,6 +15,9 @@ const Menu = () => {
         </li>
         <li style={{ marginRight: "15px" }}>
           <Link to="/sign-in">Sign In</Link>
+        </li>
+        <li style={{ marginRight: "15px" }}>
+          <Link to="/user-list">Users List</Link>
         </li>
       </ul>
     </nav>

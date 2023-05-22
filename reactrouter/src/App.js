@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./Components/Menu";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
+import UserList from "./Components/UserList";
+import UserInfo from "./Components/UserInfo";
+import NotFound from "./Components/Notfound";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/user-list" element={<UserList />} />
+          <Route path="/user-info/:userid" element={<UserInfo />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
