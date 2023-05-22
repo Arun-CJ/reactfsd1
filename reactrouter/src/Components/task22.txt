@@ -1,0 +1,3 @@
+One new button below user info
+    See user Posts
+    New route to display posts by single user
