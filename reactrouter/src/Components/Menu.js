@@ -19,6 +19,9 @@ const Menu = () => {
         <li style={{ marginRight: "15px" }}>
           <Link to="/user-list">Users List</Link>
         </li>
+        <li style={{ marginRight: "15px" }}>
+          <Link to="/todolist">Todo List</Link>
+        </li>
       </ul>
     </nav>
   );

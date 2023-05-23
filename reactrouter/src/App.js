@@ -9,6 +9,7 @@ import Dashboard from "./Components/Dashboard";
 import UserList from "./Components/UserList";
 import UserInfo from "./Components/UserInfo";
 import NotFound from "./Components/Notfound";
+import TodoList from "./Components/TodoList/TodoList";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/user-list" element={<UserList />} />
           <Route path="/user-info/:userid" element={<UserInfo />} />
+          <Route path="/todolist" element={<TodoList />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
