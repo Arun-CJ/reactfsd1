@@ -23,6 +23,17 @@ const TodoList = () => {
     setTodoList(list);
   };
 
+  const handleDelete = (data, idx) => {
+    console.log(data, idx);
+    const filteredList = todoList.filter(
+      (item, itemIndex) => itemIndex !== idx
+    );
+    console.log(filteredList);
+    setTodoList(filteredList);
+    // console.log(arr2);
+    // console.log(todoList.());
+  };
+
   return (
     <div>
       <h3>Todo List</h3>
@@ -66,7 +77,12 @@ const TodoList = () => {
                     Edit
                   </button>
 
-                  <button className="m-3 btn btn-danger">Delete</button>
+                  <button
+                    className="m-3 btn btn-danger"
+                    onClick={() => handleDelete(item, index)}
+                  >
+                    Delete
+                  </button>
                 </p>
               )}{" "}
             </div>
