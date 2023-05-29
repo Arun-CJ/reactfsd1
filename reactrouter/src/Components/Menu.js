@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Menu = () => {
   return (
@@ -17,10 +17,21 @@ const Menu = () => {
           <Link to="/sign-in">Sign In</Link>
         </li>
         <li style={{ marginRight: "15px" }}>
-          <Link to="/user-list">Users List</Link>
+          <NavLink
+            to="/users"
+            style={({ isActive }) => ({ color: isActive ? "red" : "" })}
+            state="cj"
+          >
+            Users List
+          </NavLink>
         </li>
         <li style={{ marginRight: "15px" }}>
-          <Link to="/todolist">Todo List</Link>
+          <NavLink
+            to="/todolist"
+            style={({ isActive }) => ({ color: isActive ? "red" : "" })}
+          >
+            Todo List
+          </NavLink>
         </li>
       </ul>
     </nav>

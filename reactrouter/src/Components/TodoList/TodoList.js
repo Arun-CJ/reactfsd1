@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
   const [todoItem, setTodoItem] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState("");
+  const navigate = useNavigate();
 
   const handleTodo = () => {
     setTodoList([...todoList, todoItem]);
@@ -46,6 +48,9 @@ const TodoList = () => {
         />
         <button className="m-3 btn btn-primary" onClick={() => handleTodo()}>
           Add ToDo
+        </button>
+        <button className="m-3 btn btn-danger" onClick={() => navigate(-1)}>
+          Back
         </button>
       </div>
       <div className="container">

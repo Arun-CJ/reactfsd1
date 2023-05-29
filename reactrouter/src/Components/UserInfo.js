@@ -1,8 +1,10 @@
 import users from "./users";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 const UserInfo = () => {
   const params = useParams();
+  const location = useLocation();
+  console.log("location", location);
   console.log("params", params.userid);
   const userData = users.find((user) => user.id === parseInt(params.userid));
   console.log(userData);

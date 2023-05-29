@@ -24,7 +24,9 @@ const UserList = () => {
               <p>{user.email}</p>
               <button
                 className="btn btn-primary"
-                onClick={() => navigate(`/user-info/${user.id}`)}
+                onClick={() =>
+                  navigate(`/users/${user.id}`, { state: { userid: user.id } })
+                }
               >
                 View User Info
               </button>
