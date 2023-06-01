@@ -24,9 +24,9 @@ const Menu = () => {
         <li style={{ marginRight: "15px" }}>
           <NavLink
             style={({ isActive }) => ({ color: isActive ? "red" : "" })}
-            to="/contact-us"
+            to="/addpost"
           >
-            Contact Us
+            Add Post
           </NavLink>
         </li>
         <li style={{ marginRight: "15px" }}>

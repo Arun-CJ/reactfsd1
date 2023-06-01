@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Posts = () => {
   const [postlist, setPostList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("called");
@@ -18,6 +20,14 @@ const Posts = () => {
             <div className="col-sm-4">
               <h4>{item.title}</h4>
               <p>{item.body}</p>
+              <p>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate(`/editpost/${item.id}`)}
+                >
+                  Edit Post
+                </button>
+              </p>
             </div>
           );
         })}
