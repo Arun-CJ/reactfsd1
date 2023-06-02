@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 const EditPost = () => {
   const [formData, setFormData] = useState({});
+  const [updatedData, setUpdatedData] = useState({});
   const [insertedId, setInsertedId] = useState(null);
   const params = useParams();
 
@@ -9,31 +10,24 @@ const EditPost = () => {
     console.log("inside useeffect");
     fetch(`https://jsonplaceholder.typicode.com/posts/${params.postid}`)
       .then((response) => response.json())
-      .then((json) => console.log(json))
+      .then((json) => setFormData(json))
       .catch((err) => console.log(err));
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted", formData);
-    const data = {
-      title: formData.title,
-      body: formData.bodyContent,
-      userId: formData.userId,
-    };
-    // fetch("https://jsonplaceholder.typicode.com/posts", {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8",
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log(responseData);
-    //     setInsertedId(responseData.id);
-    //   })
-    //   .catch((error) => console.log("Error while adding post data", error));
+
+    fetch(`https://jsonplaceholder.typicode.com/posts/${params.postid}`, {
+      method: "PUT",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => setUpdatedData(json))
+      .catch((error) => console.log("Error while adding post data", error));
   };
 
   const handleInputs = (e) => {
@@ -57,6 +51,7 @@ const EditPost = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             name="userId"
+            value={formData.userId}
             onChange={(e) => handleInputs(e)}
           />
         </div>
@@ -68,6 +63,7 @@ const EditPost = () => {
             type="text"
             className="form-control"
             id="exampleInputPassword1"
+            value={formData.title}
             onChange={(e) => handleInputs(e)}
             name="title"
           />
@@ -77,19 +73,26 @@ const EditPost = () => {
           <label for="exampleInputPassword1" className="form-label">
             Body Content{" "}
           </label>
-          <input
-            type="text"
+          <textarea
             className="form-control"
             id="exampleInputPassword1"
             onChange={(e) => handleInputs(e)}
-            name="bodyContent"
+            value={formData.body}
+            name="body"
+            rows={5}
           />
         </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
-      <div>New Id inserted: {insertedId}</div>
+      <div>
+        Updated Title: {updatedData.title}
+        <br />
+        Updated Body: {updatedData.body}
+        <br />
+        Updated User Id: {updatedData.userId}
+      </div>
     </div>
   );
 };
