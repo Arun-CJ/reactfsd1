@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 const AddPost = () => {
   const [formData, setFormData] = useState({
@@ -15,19 +16,26 @@ const AddPost = () => {
       body: formData.bodyContent,
       userId: formData.userId,
     };
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData);
-        setInsertedId(responseData.id);
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", data)
+      .then((response) => {
+        console.log(response.data);
+        setInsertedId(response.data.id);
       })
-      .catch((error) => console.log("Error while adding post data", error));
+      .catch((err) => console.log(err));
+    // fetch("https://jsonplaceholder.typicode.com/posts", {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((responseData) => {
+    //     console.log(responseData);
+    //     setInsertedId(responseData.id);
+    //   })
+    //   .catch((error) => console.log("Error while adding post data", error));
   };
 
   const handleInputs = (e) => {

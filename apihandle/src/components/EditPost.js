@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { json, useParams } from "react-router-dom";
+import axios from "axios";
+
 const EditPost = () => {
   const [formData, setFormData] = useState({});
   const [updatedData, setUpdatedData] = useState({});
@@ -18,16 +20,26 @@ const EditPost = () => {
     e.preventDefault();
     console.log("submitted", formData);
 
-    fetch(`https://jsonplaceholder.typicode.com/posts/${params.postid}`, {
-      method: "PUT",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => setUpdatedData(json))
-      .catch((error) => console.log("Error while adding post data", error));
+    axios
+      .put(
+        `https://jsonplaceholder.typicode.com/posts/${params.postid}`,
+        formData
+      )
+      .then((response) => {
+        setUpdatedData(response.data);
+      })
+      .catch((err) => console.log("err", err));
+
+    // fetch(`https://jsonplaceholder.typicode.com/posts/${params.postid}`, {
+    //   method: "PUT",
+    //   body: JSON.stringify(formData),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => setUpdatedData(json))
+    //   .catch((error) => console.log("Error while adding post data", error));
   };
 
   const handleInputs = (e) => {
