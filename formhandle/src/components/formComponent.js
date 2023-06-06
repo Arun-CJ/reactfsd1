@@ -9,12 +9,23 @@ const FormComponent = () => {
     age: "",
   });
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [display, setDisplay] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUsers = [...users, formData];
     console.log("submitted", formData, users, typeof users, newUsers);
     setUsers(newUsers);
+  };
+
+  const handleEdit = (data, idx) => {
+    // console.log(data, idx);
+    let updatedUsers = users;
+    updatedUsers[idx] = data;
+    // console.log(users, updatedUsers);
+    setUsers(updatedUsers);
+    setDisplay(false);
   };
 
   const handleInput = (e) => {
@@ -104,7 +115,12 @@ const FormComponent = () => {
           Submit
         </button>
       </form>
-      <UserComponent userData={users} />
+      <UserComponent
+        userData={users}
+        editFunction={handleEdit}
+        display={display}
+        setDisplay={setDisplay}
+      />
     </div>
   );
 };
