@@ -33,6 +33,14 @@ const Menu = () => {
             Todo List
           </NavLink>
         </li>
+        <li style={{ marginRight: "15px" }}>
+          <NavLink
+            to="/samplecontext"
+            style={({ isActive }) => ({ color: isActive ? "red" : "" })}
+          >
+            Context Api
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
