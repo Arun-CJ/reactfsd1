@@ -1,11 +1,17 @@
 import users from "./users";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "./Sidebar";
 
 const UserList = () => {
+  const bgcolor = useContext(ThemeContext);
   const navigate = useNavigate();
   console.log(users);
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{ backgroundColor: bgcolor === "light" ? "white" : "grey" }}
+    >
       <h3>User List</h3>
       <div className="row">
         {users.map((user) => {
