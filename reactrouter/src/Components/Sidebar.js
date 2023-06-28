@@ -27,6 +27,9 @@ const SideBar = (props) => {
                 <Link to="/about-us">About Us</Link>
               </li>
               <li style={{ marginRight: "15px" }} className="mb-2">
+                <Link to="/sign-up">Signup</Link>
+              </li>
+              <li style={{ marginRight: "15px" }} className="mb-2">
                 <Link to="/contact-us">Contact Us</Link>
               </li>
               <li style={{ marginRight: "15px" }} className="mb-2">

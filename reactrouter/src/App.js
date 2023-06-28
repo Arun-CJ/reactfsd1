@@ -12,6 +12,7 @@ import NotFound from "./Components/Notfound";
 import TodoList from "./Components/TodoList/TodoList";
 import SampleContext from "./Components/Context/SampleContext";
 import SideBar from "./Components/Sidebar";
+import SignUp from "./Components/signup";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* <Route path="/users" element={<UserList />} />
         <Route path="/users/:userid" element={<UserInfo />} />
