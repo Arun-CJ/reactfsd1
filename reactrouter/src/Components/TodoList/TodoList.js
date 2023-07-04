@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
@@ -8,8 +9,35 @@ const TodoList = () => {
   const [selectedItemData, setSelectedItemData] = useState("");
   const navigate = useNavigate();
 
+  const getTodoList = () => {
+    axios
+      .get("/api/todo/getAllList")
+      .then((res) => {
+        setTodoList(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getTodoList();
+  }, []);
+
   const handleTodo = () => {
-    setTodoList([...todoList, todoItem]);
+    // setTodoList([...todoList, todoItem]);
+    const data = {
+      name: todoItem,
+    };
+    axios
+      .post("/api/todo/addTodoItem", data)
+      .then((res) => {
+        alert(res.data.message);
+        getTodoList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleEdit = (data, idx) => {
@@ -74,7 +102,7 @@ const TodoList = () => {
                 </p>
               ) : (
                 <p>
-                  {item}
+                  {item.name}
                   <button
                     className="m-3 btn btn-warning"
                     onClick={() => handleEdit(item, index)}
