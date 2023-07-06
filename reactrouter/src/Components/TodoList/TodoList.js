@@ -10,6 +10,10 @@ const TodoList = () => {
   const navigate = useNavigate();
 
   const getTodoList = () => {
+    // const token = localStorage.getItem("todoapp");
+    // const config = {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // };
     axios
       .get("/api/todo/getAllList")
       .then((res) => {

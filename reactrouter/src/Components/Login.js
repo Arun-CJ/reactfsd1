@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import setAuthToken from "./SetAuthToken";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -14,14 +16,27 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.password.length < 3) {
-      alert("Password length should be more than 3 characters");
-    } else if (user.email === "ibridge@gmail.com" && user.password === "123") {
-      sessionStorage.setItem("userEmail", user.email);
-      navigate("/dashboard");
-    } else {
-      alert("Email or password does not match");
-    }
+    // if (user.password.length < 3) {
+    //   alert("Password length should be more than 3 characters");
+    // } else if (user.email === "ibridge@gmail.com" && user.password === "123") {
+    //   sessionStorage.setItem("userEmail", user.email);
+    //   navigate("/dashboard");
+    // } else {
+    //   alert("Email or password does not match");
+    // }
+    axios
+      .post("/api/auth/loginuser", user)
+      .then((res) => {
+        alert(res.data.message);
+        const token = res?.data?.token;
+        setAuthToken(token);
+        localStorage.setItem("todoapp", token);
+        navigate("/todolist");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.message);
+      });
   };
 
   return (

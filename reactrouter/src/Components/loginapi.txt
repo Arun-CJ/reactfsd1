@@ -1,0 +1,41 @@
+//Login api
+const loginUser = (request, response) => {
+  pool.query(
+    `SELECT * FROM login where user = ${request.body.user} and  password=${req.body.password}`,
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      if (results.rows.length > 0) {
+        return response.status(200).json({ userDetails: results.rows });
+      } else {
+        return response
+          .status(400)
+          .send({ message: "Username or password does not match" });
+      }
+      // response.status(200).json(results.rows);
+    }
+  );
+};
+
+// handleSubmit logic
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const data = {
+    user: user,
+    passowrd: passowrd,
+  };
+
+  axios
+    .post("http://login", data)
+    .then((res) => {
+      const useData = res.data.userdetails;
+
+      localStorage.setItem("userdetails", JSON.stringify(useData));
+      if (userData.userType === "ADMIN") {
+        navigate("/admindasboar");
+      }
+    })
+    .catch((err) => console.log(err.response));
+};
