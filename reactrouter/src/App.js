@@ -13,6 +13,7 @@ import TodoList from "./Components/TodoList/TodoList";
 import SampleContext from "./Components/Context/SampleContext";
 import SideBar from "./Components/Sidebar";
 import SignUp from "./Components/signup";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -36,7 +37,14 @@ function App() {
             <Route path="adduser" element={<UserList />} />
           </Route>
 
-          <Route path="/todolist" element={<TodoList />} />
+          <Route
+            path="/todolist"
+            element={
+              <ProtectedRoute>
+                <TodoList />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/samplecontext" element={<SampleContext />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

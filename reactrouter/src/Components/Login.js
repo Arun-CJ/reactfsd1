@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import setAuthToken from "./SetAuthToken";
@@ -13,6 +13,12 @@ const Login = () => {
   const handleInputs = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  // useEffect(() => {
+  //   if (localStorage.todoapp) {
+  //     navigate("/todolist");
+  //   }
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
