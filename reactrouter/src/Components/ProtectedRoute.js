@@ -11,8 +11,8 @@ if (localStorage.todoapp) {
   console.log(decoded);
 
   currentTime = Date.now() / 1000;
-  console.log(new Date(currentTime), new Date(decoded.exp * 1000));
-  console.log(currentTime / 1000);
+  // console.log(new Date(currentTime), new Date(decoded.exp * 1000));
+  // console.log(currentTime / 1000);
 }
 
 const ProtectedRoute = ({ children }) => {

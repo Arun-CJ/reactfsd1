@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../../App";
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
@@ -8,6 +9,7 @@ const TodoList = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState("");
   const navigate = useNavigate();
+  const userDetails = useContext(UserContext);
 
   const getTodoList = () => {
     // const token = localStorage.getItem("todoapp");
@@ -15,7 +17,7 @@ const TodoList = () => {
     //   headers: { Authorization: `Bearer ${token}` },
     // };
     axios
-      .get("/api/todo/getAllList")
+      .get(`/api/todo/getUserTodoList/${userDetails?.user?.id}`)
       .then((res) => {
         setTodoList(res.data.data);
       })
@@ -26,12 +28,13 @@ const TodoList = () => {
 
   useEffect(() => {
     getTodoList();
-  }, []);
+  }, [userDetails?.user?.id]);
 
   const handleTodo = () => {
     // setTodoList([...todoList, todoItem]);
     const data = {
       name: todoItem,
+      userId: userDetails?.user?.id,
     };
     axios
       .post("/api/todo/addTodoItem", data)

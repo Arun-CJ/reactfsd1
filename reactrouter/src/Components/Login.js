@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import setAuthToken from "./SetAuthToken";
+import jwt_decode from "jwt-decode";
+import { UserContext } from "../App";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -9,16 +11,29 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const userDetails = useContext(UserContext);
 
   const handleInputs = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   if (localStorage.todoapp) {
-  //     navigate("/todolist");
-  //   }
-  // }, []);
+  useEffect(() => {
+    let currentTime;
+    let decoded;
+
+    if (localStorage.todoapp) {
+      const token = localStorage.getItem("todoapp");
+
+      decoded = jwt_decode(token);
+      // console.log(decoded);
+
+      currentTime = Date.now() / 1000;
+      if (!localStorage.todoapp || decoded?.exp < currentTime) {
+      } else {
+        navigate("/todolist");
+      }
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,10 +47,14 @@ const Login = () => {
     // }
     axios
       .post("/api/auth/loginuser", user)
-      .then((res) => {
+      .then(async (res) => {
         alert(res.data.message);
         const token = res?.data?.token;
         setAuthToken(token);
+        //fetch logged in user details
+        const userData = await axios.get("/api/user/getUserInfo");
+        userDetails?.setUser(userData?.data?.data);
+        console.log(userData);
         localStorage.setItem("todoapp", token);
         navigate("/todolist");
       })
