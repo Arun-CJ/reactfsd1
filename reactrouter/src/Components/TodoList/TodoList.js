@@ -48,27 +48,50 @@ const TodoList = () => {
   };
 
   const handleEdit = (data, idx) => {
-    setSelectedItemData(data);
+    setSelectedItemData(data.name);
     setSelectedItem(idx);
   };
 
   const handleSave = (data, idx) => {
     setSelectedItem(null);
-    console.log(data, idx, selectedItemData, todoList);
-    let list = todoList;
-    list[idx] = selectedItemData;
-    setTodoList(list);
+    console.log(data);
+
+    const apiData = {
+      name: selectedItemData,
+      id: data?.todoId,
+    };
+    axios
+      .put("/api/todo/updateTodoItem", apiData)
+      .then((res) => {
+        alert(res.data.message);
+        getTodoList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // let list = todoList;
+    // list[idx] = selectedItemData;
+    // setTodoList(list);
   };
 
   const handleDelete = (data, idx) => {
-    console.log(data, idx);
-    const filteredList = todoList.filter(
-      (item, itemIndex) => itemIndex !== idx
-    );
-    console.log(filteredList);
-    setTodoList(filteredList);
+    // console.log(data, idx);
+    // const filteredList = todoList.filter(
+    //   (item, itemIndex) => itemIndex !== idx
+    // );
+    // console.log(filteredList);
+    // setTodoList(filteredList);
     // console.log(arr2);
     // console.log(todoList.());
+    axios
+      .delete(`/api/todo/deleteTodoItem/${data.todoId}`)
+      .then((res) => {
+        alert(res.data.message);
+        getTodoList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
