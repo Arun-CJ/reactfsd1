@@ -4,6 +4,8 @@ import axios from "axios";
 import setAuthToken from "./SetAuthToken";
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../App";
+import { useDispatch, useSelector } from "react-redux";
+import { signInUser } from "../features/authSlice";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -11,7 +13,9 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const userDetails = useContext(UserContext);
+  const dispatch = useDispatch();
+  const { authSlice } = useSelector((state) => state);
+  // const userDetails = useContext(UserContext);
 
   const handleInputs = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -30,13 +34,20 @@ const Login = () => {
       currentTime = Date.now() / 1000;
       if (!localStorage.todoapp || decoded?.exp < currentTime) {
       } else {
-        navigate("/todolist");
+        if (authSlice?.isAuthenticated) {
+          navigate("/todolist");
+        }
       }
     }
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const apiData = {
+      user,
+      navigate,
+    };
+    dispatch(signInUser(apiData));
     // if (user.password.length < 3) {
     //   alert("Password length should be more than 3 characters");
     // } else if (user.email === "ibridge@gmail.com" && user.password === "123") {
@@ -45,23 +56,23 @@ const Login = () => {
     // } else {
     //   alert("Email or password does not match");
     // }
-    axios
-      .post("/api/auth/loginuser", user)
-      .then(async (res) => {
-        alert(res.data.message);
-        const token = res?.data?.token;
-        setAuthToken(token);
-        //fetch logged in user details
-        const userData = await axios.get("/api/user/getUserInfo");
-        userDetails?.setUser(userData?.data?.data);
-        console.log(userData);
-        localStorage.setItem("todoapp", token);
-        navigate("/todolist");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.response.data.message);
-      });
+    // axios
+    //   .post("/api/auth/loginuser", user)
+    //   .then(async (res) => {
+    //     alert(res.data.message);
+    //     const token = res?.data?.token;
+    //     setAuthToken(token);
+    //     //fetch logged in user details
+    //     const userData = await axios.get("/api/user/getUserInfo");
+    //     // userDetails?.setUser(userData?.data?.data);
+    //     console.log(userData);
+    //     localStorage.setItem("todoapp", token);
+    //     navigate("/todolist");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert(err.response.data.message);
+    //   });
   };
 
   return (

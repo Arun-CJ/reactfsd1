@@ -2,13 +2,18 @@ import { createContext, useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { removeUserInfo } from "../features/authSlice";
 
 const ThemeContext = createContext();
 
 const SideBar = (props) => {
   const [themeColor, setThemeColor] = useState("light");
-  const user = useContext(UserContext);
+  const { authSlice } = useSelector((state) => state);
+  // const user = useContext(UserContext);
+  const { user } = authSlice;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // console.log(user, "inside sidebar");
 
   const handleToggleButton = (e) => {
@@ -22,7 +27,9 @@ const SideBar = (props) => {
 
   const hanadleLogout = () => {
     localStorage.removeItem("todoapp");
-    user?.setUser({});
+    // user?.setUser({});
+    //redux action call
+    dispatch(removeUserInfo());
     navigate("/sign-in");
   };
 
@@ -32,9 +39,9 @@ const SideBar = (props) => {
         <div className="row flex-nowrap" style={{ height: "100vh" }}>
           <div className="col-auto bg-dark">
             <ul className="nav flex-column">
-              {user?.user?.name && (
+              {user?.name && (
                 <li style={{ marginRight: "15px" }} className="mb-2">
-                  <p style={{ color: "blue" }}>Name: {user?.user?.name}</p>
+                  <p style={{ color: "blue" }}>Name: {user?.name}</p>
                 </li>
               )}
               <li style={{ marginRight: "15px" }} className="mb-2">
@@ -46,7 +53,7 @@ const SideBar = (props) => {
               <li style={{ marginRight: "15px" }} className="mb-2">
                 <Link to="/contact-us">Contact Us</Link>
               </li>
-              {!user?.user?.name && (
+              {!user?.name && (
                 <>
                   {" "}
                   <li style={{ marginRight: "15px" }} className="mb-2">
@@ -98,7 +105,7 @@ const SideBar = (props) => {
                   <label>Dark</label>
                 </p>
               </li>
-              {user?.user?.id && (
+              {user?.id && (
                 <li style={{ marginRight: "15px" }} className="mb-2">
                   <button
                     className="btn btn-warning"

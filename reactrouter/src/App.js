@@ -16,18 +16,22 @@ import SideBar from "./Components/Sidebar";
 import SignUp from "./Components/signup";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "./features/authSlice";
 
 const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.todoapp) {
-      axios.get("/api/user/getUserInfo").then((res) => {
-        // console.log(res.data.data);
-        setUser(res?.data?.data);
-      });
+      dispatch(getUserInfo());
+      // axios.get("/api/user/getUserInfo").then((res) => {
+      //   // console.log(res.data.data);
+      //   setUser(res?.data?.data);
+      // });
     }
   }, []);
 

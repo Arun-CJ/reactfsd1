@@ -2,14 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../App";
+import { useSelector } from "react-redux";
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
   const [todoItem, setTodoItem] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedItemData, setSelectedItemData] = useState("");
+  const { authSlice } = useSelector((state) => state);
   const navigate = useNavigate();
-  const userDetails = useContext(UserContext);
+  // const userDetails = useContext(UserContext);
+  const userDetails = authSlice?.user;
 
   const getTodoList = () => {
     // const token = localStorage.getItem("todoapp");
